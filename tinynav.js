@@ -31,12 +31,14 @@
 
         // Build options
         var options = '';
+        var disabled = '';
 
         $nav
           .addClass('l_' + namespace_i)
           .find('a')
           .each(function () {
-            options += '<option value="' + $(this).attr('href') + '">';
+            disabled = $(this).attr('class') || "";
+            options += '<option '+disabled+' value="' + $(this).attr('href') + '">';
             var j;
             for (j = 0; j < $(this).parents('ul, ol').length - 1; j++) {
               options += '- ';
