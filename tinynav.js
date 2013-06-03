@@ -1,83 +1,85 @@
 /*! http://tinynav.viljamis.com v1.1 by @viljamis */
 (function ($, window, i) {
-  $.fn.tinyNav = function (options) {
+    $.fn.tinyNav = function (options) {
 
     // Default settings
-    var settings = $.extend({
-      'active' : 'active', // String: Set the "active" class
-      'header' : '', // String: Specify text for "header" and show header instead of the active item
-      'label'  : '' // String: sets the <label> text for the <select> (if not set, no label will be added)
-    }, options);
+        var settings = $.extend({
+          'active' : 'active', // String: Set the "active" class
+          'header' : 'Menu Selector', // String: Specify text for "header"
+          'allheader' : false, // Boolean: removes the active selected on header
+          'label'  : '' // String: sets the <label> text for the <select> (if not set, no label will be added)
+        }, options);
 
-    return this.each(function () {
+        return this.each(function () {
+        i++;
+          // Used for namespacing
+        var $nav = $(this),
+            // Namespacing
+            namespace = 'tinynav',
+            namespace_i = namespace + i,
+            l_namespace_i = '.l_' + namespace_i,
+            $select = $('<select/>').attr("id", namespace_i).addClass(namespace + ' ' + namespace_i);
 
-      // Used for namespacing
-      i++;
+        if ($nav.is('ul,ol')) {
 
-      var $nav = $(this),
-        // Namespacing
-        namespace = 'tinynav',
-        namespace_i = namespace + i,
-        l_namespace_i = '.l_' + namespace_i,
-        $select = $('<select/>').attr("id", namespace_i).addClass(namespace + ' ' + namespace_i);
+            // Build options
+            var options = '';
+            var disabled = '';
 
-      if ($nav.is('ul,ol')) {
+            $nav.addClass('l_' + namespace_i)
+            .find('a')
+            .each(function () {
+                disabled = $(this).attr('class') || "";
+                options += '<option '+disabled+' value="' + $(this).attr('href') + '">';
+                var j;
+                for (j = 0; j < $(this).parents('ul, ol').length - 1; j++) {
+                    options += '- ';
+                }
+                options += $(this).text() + '</option>';
+            });
 
-        if (settings.header !== '') {
-          $select.append(
-            $('<option/>').text(settings.header)
-          );
-        }
+            // Append options into a select
+            $select.append(options);
 
-        // Build options
-        var options = '';
-        var disabled = '';
-
-        $nav
-          .addClass('l_' + namespace_i)
-          .find('a')
-          .each(function () {
-            disabled = $(this).attr('class') || "";
-            options += '<option '+disabled+' value="' + $(this).attr('href') + '">';
-            var j;
-            for (j = 0; j < $(this).parents('ul, ol').length - 1; j++) {
-              options += '- ';
+            // Select the active item
+            if (!settings.allheader) {
+            // is anything active?
+                if($(l_namespace_i + ' li.' + settings.active).length) {
+                    $select
+                    .find(':eq(' + $(l_namespace_i + ' li')
+                    .index($(l_namespace_i + ' li.' + settings.active)) + ')')
+                    .attr('selected', true);
+                }
             }
-            options += $(this).text() + '</option>';
-          });
+            //add the header at the end to avoid select index count issue and add a parent path as this is possibly a child list
+            if (settings.header !== '') {
+                var path = window.location.pathname;
+                path = path.substring(0, path.lastIndexOf("/"));
+                $select.prepend($('<option/>').val("path")
+                .text(settings.header)
+                .addClass("tinyNavSelectHeader"));
+            }
+            // Change window location
+            $select.change(function () {
+              window.location.href = $(this).val();
+            });
 
-        // Append options into a select
-        $select.append(options);
+            // Inject select
+            $(l_namespace_i).after($select);
 
-        // Select the active item
-        if (!settings.header) {
-          $select
-            .find(':eq(' + $(l_namespace_i + ' li')
-            .index($(l_namespace_i + ' li.' + settings.active)) + ')')
-            .attr('selected', true);
-        }
+            // Inject label
+            if (settings.label) {
+                $select.before(
+                $("<label/>")
+                  .attr("for", namespace_i)
+                  .addClass(namespace + '_label ' + namespace_i + '_label')
+                  .append(settings.label)
+                );
+            }
 
-        // Change window location
-        $select.change(function () {
-          window.location.href = $(this).val();
+          }
+
         });
-
-        // Inject select
-        $(l_namespace_i).after($select);
-
-        // Inject label
-        if (settings.label) {
-          $select.before(
-            $("<label/>")
-              .attr("for", namespace_i)
-              .addClass(namespace + '_label ' + namespace_i + '_label')
-              .append(settings.label)
-          );
-        }
-
-      }
-
-    });
-
   };
+
 })(jQuery, this, 0);
