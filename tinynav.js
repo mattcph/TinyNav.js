@@ -5,7 +5,7 @@
     // Default settings
         var settings = $.extend({
           'active' : 'active', // String: Set the "active" class
-          'header' : 'Menu Selector', // String: Specify text for "header"
+          'header' : '', // String: Specify text for "header"
           'allheader' : false, // Boolean: removes the active selected on header
           'label'  : '' // String: sets the <label> text for the <select> (if not set, no label will be added)
         }, options);
