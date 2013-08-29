@@ -4,6 +4,7 @@
 
     // Default settings
         var settings = $.extend({
+          'domObj' : '', // id or class reference to a dom object in template
           'active' : 'active', // String: Set the "active" class
           'header' : '', // String: Specify text for "header"
           'allheader' : false, // Boolean: removes the active selected on header
@@ -65,7 +66,10 @@
             });
 
             // Inject select
-            $(l_namespace_i).after($select);
+            if (!settings.domObj) {
+                settings.domObj = l_namespace_i;
+            }
+            $(settings.domObj).after($select);
 
             // Inject label
             if (settings.label) {
