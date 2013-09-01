@@ -4,11 +4,11 @@
 
     // Default settings
         var settings = $.extend({
-          'domObj' : '', // id or class reference to a dom object in template
           'active' : 'active', // String: Set the "active" class
           'header' : '', // String: Specify text for "header"
           'allheader' : false, // Boolean: removes the active selected on header
-          'label'  : '' // String: sets the <label> text for the <select> (if not set, no label will be added)
+          'label'  : '', // String: sets the <label> text for the <select> (if not set, no label will be added)
+          'domObj' : '' // find the dom object to contain the select
         }, options);
 
         return this.each(function () {
@@ -65,11 +65,13 @@
               window.location.href = $(this).val();
             });
 
-            // Inject select
-            if (!settings.domObj) {
-                settings.domObj = l_namespace_i;
+            // Inject select and use own dom element to append into
+            $(l_namespace_i).after($select);
+            if(i===1) {
+                if (settings.domObj) {
+                    $(settings.domObj).append($('#tinynav1'));
+                }
             }
-            $(settings.domObj).after($select);
 
             // Inject label
             if (settings.label) {
@@ -87,3 +89,4 @@
   };
 
 })(jQuery, this, 0);
+
