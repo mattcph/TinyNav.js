@@ -1,17 +1,5 @@
 # TinyNav.js
-### Responsive navigation plugin that weighs just 443 bytes
-
-[TinyNav.js](http://tinynav.viljamis.com/) is a tiny jQuery plugin (443 bytes minified and gzipped) that converts `<ul>` and `<ol>` navigations to a select boxes for small screen. It also automatically selects the current page and adds `selected="selected"` for that item. There's also a Wordpress plugin available, [here](http://wordpress.org/extend/plugins/tinynav/).
-
-This isn't the first plugin to do this and it doesn't provides a lot of options, but it might be the smallest (file size).
-
-Check out also the new version called [Responsive Nav](http://responsive-nav.com).
-
-Usage Instructions and demo
-======
-
-For instructions and demo go to [http://tinynav.viljamis.com](http://tinynav.viljamis.com/)
-
+Used in lots of sites.
 
 License
 ======
@@ -30,6 +18,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 Changelog
 ======
 
+mattcph - see fork for commit details.
+All the new code is still free, and comes with lots of hacks and improvements for real world usage.
+
+v1.1.mattcph (2013-09-01) - dom object for injection, active/inactive options, preferred active for selector ,)
+
 v1.1 (2012-11-14) - Adds an optional "label" tag before the "select" tag, thanks to [@larcher](https://github.com/larcher)
 
 v1.05 (2012-10-19) - Adds the support for multiple navigation depths, thanks to [@nicoandrade](https://github.com/nicoandrade)
@@ -44,8 +37,3 @@ v1.01 (2012-01-04) - Code Refactoring
 
 v1.00 (2011-12-31) - Release
 
-
-Want to do a pull request?
-======
-
-Great! New ideas are more than welcome, but please check the [Pull Request Guidelines](https://github.com/viljamis/TinyNav.js/wiki/Pull-Request-Guidelines) first before doing so.
