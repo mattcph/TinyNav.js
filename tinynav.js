@@ -48,7 +48,7 @@
                 if($(l_namespace_i + ' li.' + settings.active).length) {
                     $select
                     .find(':eq(' + $(l_namespace_i + ' li')
-                    .index($(l_namespace_i + ' li.' + settings.active)) + ')')
+                    .index($(l_namespace_i + ' li.' + settings.active + ':last')) + ')')
                     .attr('selected', true);
                 }
             }
